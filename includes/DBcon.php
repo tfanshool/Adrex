@@ -14,7 +14,7 @@
             $this->username = "root";
             $this->password = "";
             $this->dbname = "adrexDB";
-            $this->betaMode = false;
+            $this->betaMode = true;
         }
 
         public function connect(): void
@@ -29,4 +29,6 @@
                     echo "Connection failed: " . $e->getMessage();
             }
         }
+
+
     }

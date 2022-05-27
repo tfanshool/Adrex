@@ -1,0 +1,18 @@
+.dropify-wrapper {
+  @extend .border;
+
+  .dropify-message {
+    span {
+      &.file-icon {
+        font-size: .875rem;
+        color: $text-muted;
+
+        &::before {
+          font-family: feather;
+          content: '\e8e3';
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
