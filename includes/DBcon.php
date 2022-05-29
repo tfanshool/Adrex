@@ -14,7 +14,16 @@
             $this->username = "root";
             $this->password = "";
             $this->dbname = "adrexDB";
-            $this->betaMode = true;
+            $this->betaMode = false;
+            $this->connect();
+        }
+
+        /**
+         * @return bool
+         */
+        public function isBetaMode(): bool
+        {
+            return $this->betaMode;
         }
 
         public function connect(): void
@@ -23,10 +32,10 @@
                 $conn = new PDO("mysql:host=$this->servername; $this->dbname", $this->username, $this->password);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 if ($this->betaMode)
-                    echo "Connected successfully";
+                    echo "Database Connected successfully\n";
             } catch (PDOException $e) {
                 if ($this->betaMode)
-                    echo "Connection failed: " . $e->getMessage();
+                    echo "Database Connection failed: " . $e->getMessage()."\n";
             }
         }
 
