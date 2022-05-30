@@ -8,35 +8,39 @@
         private string $dbname;
         private bool $betaMode;
 
-        public function __construct()
+        protected function __construct()
         {
             $this->servername = "localhost";
             $this->username = "root";
             $this->password = "";
-            $this->dbname = "adrexDB";
-            $this->betaMode = false;
+            $this->dbname = "adrexdb";
+            $this->betaMode = true;
+
             $this->connect();
         }
 
         /**
          * @return bool
          */
-        public function isBetaMode(): bool
+        protected function isBetaMode(): bool
         {
             return $this->betaMode;
         }
 
-        public function connect(): void
+
+        protected function connect(bool $flag = true) : ?PDO
         {
             try {
-                $conn = new PDO("mysql:host=$this->servername; $this->dbname", $this->username, $this->password);
+                $conn = new PDO("mysql:host=$this->servername; dbname=$this->dbname", $this->username, $this->password);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                if ($this->betaMode)
+                if ($this->betaMode && $flag)
                     echo "Database Connected successfully\n";
+                return $conn;
             } catch (PDOException $e) {
-                if ($this->betaMode)
+                if ($this->betaMode && $flag)
                     echo "Database Connection failed: " . $e->getMessage()."\n";
             }
+            return null;
         }
 
 

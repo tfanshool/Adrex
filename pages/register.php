@@ -12,22 +12,22 @@
         $email= $_POST["email"];
         $password= $_POST["password"];
         $register->setVariables($username,$email,$password);
-        if($connection->isBetaMode())
+        if($register->getBetaMode())
         {
             echo "<br>[login_button is <b>on</b> issetMode]";
-            echo "<b> || Username : </b>".$username;
-            echo "<b> || E-mail : </b>".$email;
-            echo "<b> || Password : </b>".$password." || ";
+            echo " [<b>Username : </b>".$username."]";
+            echo " [<b>E-mail : </b>".$email."]";
+            echo " [<b>Password : </b>".$password."]";
         }
 
         if($register->RegisterValidation())        // seems like something is wrong with inputs
         {
-            if($connection->isBetaMode())
+            if($register->getBetaMode())
                 echo "<br>[Error Triggered : <b>True</b>] [Found : <b>".count($register->RegisterValidation())."</b>] [Error Code(s) : <b>".json_encode($register->RegisterValidation())."</b>]";
         }
         else                                        // Wohhooo No error in input
         {
-            if($connection->isBetaMode())
+            if($register->getBetaMode())
                 echo "<br>[Error Triggered : <b>False</b>]";
 
         }
@@ -36,7 +36,7 @@
     }
     else
     {
-        if($connection->isBetaMode())
+        if($register->getBetaMode())
         {
             echo "<br>[login_button is <b>not on</b> issetMode]";
         }
@@ -73,21 +73,21 @@
 
 
 
-                                    <form action="register.php" method="post"   lass="forms-sample">
+                                    <form action="register.php" method="post"   class="forms-sample">
                                         <div class="form-group">
                                             <label for="exampleInputUsername1">Username</label>
-                                            <input type="text" class="form-control" id="username" name="username"
-                                                   autocomplete="Username" placeholder="Username">
+                                            <input type="text" class="form-control " id="username" name="username"
+                                                   autocomplete="Username" placeholder="Username" value="<?php if(isset($_POST["login_button"])) echo $_POST["username"];  ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email address</label>
                                             <input type="email" class="form-control" id="email" name="email"
-                                                   placeholder="Email">
+                                                   placeholder="Email" value="<?php if(isset($_POST["login_button"])) echo $_POST["email"];  ?>" >
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Password</label>
                                             <input type="password" class="form-control" id="password" name="password"
-                                                   autocomplete="current-password" placeholder="Password">
+                                                   autocomplete="current-password" placeholder="Password" >
                                         </div>
 
                                         <div class="mt-3">

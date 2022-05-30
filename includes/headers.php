@@ -1,6 +1,7 @@
 <?php
     require_once('DBcon.php');
-    $connection = new DBcon();
+
+
 
 ?>
 
