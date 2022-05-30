@@ -61,8 +61,7 @@
                 $array_codes[] = 5;
 
 
-
-            if(count($array_codes)==0)                          // if array is empty (i.e. no error encountered ) it will return null
+            if (count($array_codes) == 0)                          // if array is empty (i.e. no error encountered ) it will return null
                 return null;
             sort($array_codes);
             return $array_codes;
@@ -133,10 +132,11 @@
                 </div>
                 <?php
             }
-            if (in_array(4, $errorCode) || in_array(5, $errorCode) ) {
+            if (in_array(4, $errorCode) || in_array(5, $errorCode)) {
                 ?>
                 <div class="alert alert-danger" role="alert">
-                    Password size must be minimum of <b> <?php echo $this->passMinSize ?> </b> and maximum of <b> <?php echo $this->passMaxSize ?> </b> characters.
+                    Password size must be minimum of <b> <?php echo $this->passMinSize ?> </b> and maximum of
+                    <b> <?php echo $this->passMaxSize ?> </b> characters.
                 </div>
                 <?php
             }
