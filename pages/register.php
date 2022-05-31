@@ -12,25 +12,31 @@
         $email= $_POST["email"];
         $password= $_POST["password"];
         $register->setVariables($username,$email,$password);
+        $error_Codes = $register->RegisterValidation();
+        $filter_error_code=  $register->filterErrorCodes($error_Codes);
+
         if($register->getBetaMode())
         {
-            echo "<br>[login_button is <b>on</b> issetMode]";
+            echo "<br>[Login_button is <b>on</b> issetMode]";
             echo " [<b>Username : </b>".$username."]";
             echo " [<b>E-mail : </b>".$email."]";
             echo " [<b>Password : </b>".$password."]";
         }
 
-        if($register->RegisterValidation())        // seems like something is wrong with inputs
+        if($register->getBetaMode())
         {
-            if($register->getBetaMode())
-                echo "<br>[Error Triggered : <b>True</b>] [Found : <b>".count($register->RegisterValidation())."</b>] [Error Code(s) : <b>".json_encode($register->RegisterValidation())."</b>]";
-        }
-        else                                        // Wohhooo No error in input
-        {
-            if($register->getBetaMode())
+            if($error_Codes!=null)        // seems like something is wrong with inputs
+                echo "<br>[Error Triggered : <b>True</b>] [Found : <b>".count($error_Codes)."</b>] [Error Code(s) : <b>".json_encode($error_Codes)."</b>]";
+            else                                        // Wohhooo No error in input
                 echo "<br>[Error Triggered : <b>False</b>]";
 
+            if($filter_error_code!=null)        // seems like something is wrong with inputs
+                echo "<br>[Filtered error Triggered : <b>True</b>] [Found : <b>".count($filter_error_code)."</b>] [Error Code(s) : <b>".json_encode($filter_error_code)."</b>]";
+            else                                        // Wohhooo No error in input
+                echo "<br>[Filtered error Triggered : <b>False</b>]";
         }
+
+
 
 
     }
@@ -45,6 +51,7 @@
 
 
 <body>
+
 <div class="main-wrapper">
     <div class="page-wrapper full-page">
         <div class="page-content d-flex align-items-center justify-content-center">
@@ -76,17 +83,23 @@
                                     <form action="register.php" method="post"   class="forms-sample">
                                         <div class="form-group">
                                             <label for="exampleInputUsername1">Username</label>
-                                            <input type="text" class="form-control " id="username" name="username"
+                                            <input type="text" class="form-control  <?php if($filter_error_code!=null && isset($_POST["login_button"])) if( in_array(0,$filter_error_code)) echo "is-invalid"; else echo "is-valid";?>" id="username" name="username"
                                                    autocomplete="Username" placeholder="Username" value="<?php if(isset($_POST["login_button"])) echo $_POST["username"];  ?>">
+                                            <?php
+                                                if(isset($_POST["login_button"]) && $username=="chirag")
+                                                    echo "<div class='valid-feedback'>Aur Maderchod</b> </div>";
+                                            ?>
+
                                         </div>
+
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email address</label>
-                                            <input type="email" class="form-control" id="email" name="email"
+                                            <input type="email" class="form-control <?php if($filter_error_code!=null && isset($_POST["login_button"])) if($filter_error_code!=null &&  in_array(1,$filter_error_code)) echo "is-invalid"; else echo "is-valid";?>" id="email" name="email"
                                                    placeholder="Email" value="<?php if(isset($_POST["login_button"])) echo $_POST["email"];  ?>" >
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" class="form-control" id="password" name="password"
+                                            <input type="password" class="form-control <?php if($filter_error_code!=null && isset($_POST["login_button"])) if(  in_array(2,$filter_error_code)) echo "is-invalid"; else echo "is-valid";?>" id="password" name="password"
                                                    autocomplete="current-password" placeholder="Password" >
                                         </div>
 
@@ -96,6 +109,7 @@
 
                                         </div>
                                         <a href="login.php" class="d-block mt-3 text-muted">Already a user? Sign in</a>
+
                                     </form>
 
 
