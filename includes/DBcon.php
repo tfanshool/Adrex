@@ -14,7 +14,7 @@
             $this->username = "root";
             $this->password = "";
             $this->dbname = "adrexdb";
-            $this->betaMode = true;
+            $this->betaMode = false;
 
             $this->connect();
         }

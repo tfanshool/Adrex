@@ -39,7 +39,7 @@
                 $filtered_Error_Codes[]=0;
             if (in_array(1,$errorCodes) || in_array(3,$errorCodes))     //e-mail
                 $filtered_Error_Codes[]=1;
-            if(!empty($filtered_Error_Codes))                                       //password
+            if(in_array(2,$errorCodes) || in_array(4,$errorCodes) || in_array(5,$errorCodes) || in_array(7,$errorCodes) ||in_array(8,$errorCodes) || in_array(9,$errorCodes) || in_array(10,$errorCodes) )                                       //password
                 $filtered_Error_Codes[]=2;
 
             sort($filtered_Error_Codes);
@@ -76,6 +76,7 @@
                     $array_codes[]=$key;
             }
 
+
             if ($this->passMinError())                         // returns 4 Password must be a minimum of $minPassSize characters
                 $array_codes[] = 4;
             if ($this->passMaxError())                         // returns 5 Password must be a Max of $maxPassSize characters
@@ -98,7 +99,7 @@
             }
 
 
-            if (empty($array_codes))                      // if array is empty (i.e. no error encountered ) it will return null
+            if (empty($array_codes))                                 // if array is empty (i.e. no error encountered ) it will return null
                 return null;
             sort($array_codes);
             return $array_codes;
@@ -207,7 +208,7 @@
             if (in_array(0, $errorCode) && in_array(1, $errorCode) && in_array(2, $errorCode)) {
                 ?>
                 <div class="alert alert-danger" role="alert">
-                     All field are <b>mandatory</b>!
+                     All field are <b>Mandatory</b>!
                 </div>
                 <?php
             }

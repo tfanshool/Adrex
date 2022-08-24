@@ -2,11 +2,7 @@
     require_once('DBcon.php');
 
 
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,4 +23,6 @@
     <link rel="stylesheet" href="../assets/css/demo_1/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png"/>
+    <!-- choose one -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
